@@ -79,4 +79,4 @@ Alternatively, there is software that can perform associations on the dosage dat
     ```
 
 
-3. Upload to LocusZoom. The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. How does this compare to the results that you obtained from the GWAS session?
+3. Upload to [LocusZoom](http://locuszoom.org/genform.php?type=yourdata). The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. How does this compare to the results that you obtained from the GWAS session?
