@@ -13,3 +13,7 @@ gzip data_chr16.gen
 # Make sample file
 Rscript make_sample.r
 
+# Make vcf file
+qctool -g data_chr16.gen.gz -s data.sample -og data_chr16.vcf
+gzip data_chr16.vcf
+
