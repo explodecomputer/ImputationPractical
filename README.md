@@ -1,9 +1,13 @@
 # Imputation practical
 
+All the material for this practical is available here:
+
+[https://github.com/explodecomputer/ImputationPractical](https://github.com/explodecomputer/ImputationPractical)
+
 In this practical we will 
 
-- Look look at an imputation data format
-- Make some summary plots
+- Look look at imputation data formats
+- Make some summary plots of imputed data
 - Perform associations for imputed SNPs around the FTO region against BMI
 - Create a LocusZoom plot of these results
 
@@ -55,7 +59,9 @@ cd pract6_Imputation
 
     ```
     module add apps/qctool-1.4
-    qctool -g data/data_chr16.gen.gz -snp-stats output/data_chr16.snp-stats
+    qctool \
+    -g data/data_chr16.gen.gz \
+    -snp-stats output/data_chr16.snp-stats
     ```
 
     (takes about 5 minutes)
@@ -110,8 +116,12 @@ Alternatively, there is software that can perform associations on the dosage dat
 2. Remove results with low info scores from the results
     
     ```
-    zgrep -v "#" results/bmi.txt.gz | awk '{ if(NR == 1 || $9 > 0.5) { print $0 }}' > output/bmi_filtered.txt
+    zgrep -v "#" results/bmi.txt.gz \
+    | awk '{ if(NR == 1 || $9 > 0.5) { print $0 }}' \
+    > output/bmi_filtered.txt
     ```
 
 
-3. Upload to [LocusZoom](http://locuszoom.org/genform.php?type=yourdata). The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. For the region specify `rs3751813` as the SNP. How does this plot compare to the results that you obtained from the GWAS session?
+3. Create a LocusZoom plot. This requires that you use WinSCP to download the `output/bmi_filtered.txt` file from Bluecrystal3, and then upload that file to [LocusZoom](http://locuszoom.org/genform.php?type=yourdata). 
+    
+    The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. For the region specify `rs3751813` as the SNP. How does this plot compare to the results that you obtained from the GWAS session?
