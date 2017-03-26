@@ -55,7 +55,7 @@ cd pract6_Imputation
 
     ```
     module add apps/qctool-1.4
-    qctool -g data/data_chr16.gen.gz -snp-stats data_chr16.snp-stats
+    qctool -g data/data_chr16.gen.gz -snp-stats output/data_chr16.snp-stats
     ```
 
     (takes about 5 minutes)
@@ -68,6 +68,10 @@ cd pract6_Imputation
     ```
     Rscript scripts/maf_info_plots.R
     ```
+
+    In order to see these plots we will have to download them we will have to copy them across using an SFTP client. 
+
+    Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder `pract6_Imputation/`
 
 4. We can also look at another format - VCF (variant call format). This is emerging as a much more popular format, and is currently generated as output by both Sanger and Michigan imputation servers. The software to use for this format is [vcftools](http://vcftools.sourceforge.net/documentation.html) or [bcftools](https://samtools.github.io/bcftools/).
     
@@ -110,4 +114,4 @@ Alternatively, there is software that can perform associations on the dosage dat
     ```
 
 
-3. Upload to [LocusZoom](http://locuszoom.org/genform.php?type=yourdata). The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. How does this compare to the results that you obtained from the GWAS session?
+3. Upload to [LocusZoom](http://locuszoom.org/genform.php?type=yourdata). The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. For the region specify `rs3751813` as the SNP. How does this plot compare to the results that you obtained from the GWAS session?
