@@ -1,4 +1,4 @@
-dat <- read.table("dat.snp-stats", header=TRUE)
+dat <- read.table("output/data_chr16.snp-stats", header=TRUE)
 
 pdf(file="maf.pdf")
 hist(dat$MAF, breaks=100, main="Histogram of MAF", xlab="MAF")
