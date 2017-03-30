@@ -21,10 +21,10 @@ qsub ‐I ‐q teaching ‐l nodes=1:ppn=1,walltime=02:00:00
 
 ### Materials
 
-The material for this practical are in `pract6_Imputation`. Set your working directory:
+The material for this practical are in `pract7_Imputation`. Set your working directory:
 
 ```
-cd pract6_Imputation
+cd pract7_Imputation
 ```
 
 
@@ -77,7 +77,7 @@ cd pract6_Imputation
 
     In order to see these plots we will have to download them we will have to copy them across using an SFTP client. 
 
-    Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder `pract6_Imputation/`
+    Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder `pract7_Imputation/`
 
 4. We can also look at another format - VCF (variant call format). This is emerging as a much more popular format, and is currently generated as output by both Sanger and Michigan imputation servers. The software to use for this format is [vcftools](http://vcftools.sourceforge.net/documentation.html) or [bcftools](https://samtools.github.io/bcftools/).
     
