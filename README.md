@@ -124,4 +124,4 @@ Alternatively, there is software that can perform associations on the dosage dat
 
 3. Create a LocusZoom plot. This requires that you use WinSCP to download the `output/bmi_filtered.txt` file from Bluecrystal3, and then upload that file to [LocusZoom](http://locuszoom.org/genform.php?type=yourdata). 
     
-    The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. For the region specify `rs3751813` as the SNP. How does this plot compare to the results that you obtained from the GWAS session?
+    The "Marker Column Name" is `rsid` and the "P-Value Column Name" is `frequentist_add_pvalue`. The column delimiter is `Space`. For the region specify `rs8050136` as the SNP. How does this plot compare to the results that you obtained from the GWAS session?
