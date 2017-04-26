@@ -72,6 +72,7 @@ cd pract7_Imputation
     - the relationship between info score and allele frequency
 
     ```
+    module add languages/R-3.3.3-ATLAS
     Rscript scripts/maf_info_plots.R
     ```
 
