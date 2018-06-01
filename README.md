@@ -6,7 +6,7 @@ All the material for this practical is available here:
 
 In this practical we will 
 
-- Look look at imputation data formats
+- Look at imputation data formats
 - Make some summary plots of imputed data
 - Perform associations for imputed SNPs around the FTO region against BMI
 - Create a LocusZoom plot of these results
@@ -35,7 +35,7 @@ cd pract7_Imputation
     - [Michigan server](https://imputationserver.sph.umich.edu/index.html)
     - [Sanger server](https://imputation.sanger.ac.uk/)
 
-1. As discussed in the lecture, imputation data is **probabilistic**. There are several formats and we will look at two. First is known as Oxford format (aka gen format). It presents the genotype data in dosages. Specifically, for each individual there are 3 columns, each representing genotype probability.
+1. As discussed in the lecture, imputation data is **probabilistic**. There are several formats, and we will look at two. First is known as Oxford format (aka gen format). It presents the genotype data in dosages. Specifically, for each individual there are 3 columns, each representing genotype probability.
 
     The imputed data that we will look at is a chunk of chromosome 16 located here:
 
@@ -76,7 +76,7 @@ cd pract7_Imputation
     Rscript scripts/maf_info_plots.R
     ```
 
-    In order to see these plots we will have to download them we will have to copy them across using an SFTP client. 
+    In order to see these plots we will have to copy them across from the server to our local computers using an SFTP client. 
 
     Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder `pract7_Imputation/`
 
@@ -88,9 +88,9 @@ cd pract7_Imputation
 
 ### Performing associations with imputed data
 
-It is possible to convert the imputed data to plink's binary format. This will **destroy** information, because it takes the dosages and reduces them to 'best guess' genotypes - discarding the uncertainty that the dosages encapsulate. With best guess data one can perform associations as usual with plink or other software.
+It is possible to convert the imputed data to plink's binary format. This will **destroy** information, because it takes the dosages and reduces them to 'best guess' genotypes - discarding the uncertainty inherent in probabilistic dosages. With best guess data one can perform associations as usual with plink or other software.
 
-Alternatively, there is software that can perform associations on the dosage data itself, using the uncertainty as part of the association test statistic. For Oxford format data we can use software called [SNPTEST](https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html). 
+Alternatively, there is software that can perform associations on the probabilistic dosage data itself, using the uncertainty as part of the association test statistic. For Oxford or VCF format data we can use software called [SNPTEST](https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html). 
 
 1. Here we will perform associations of all the SNPs in our file against BMI
 
