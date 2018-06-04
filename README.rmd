@@ -1,4 +1,13 @@
-# Imputation practical
+---
+title: Imputation practical
+author: Gibran Hemani
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+    html_document: default
+    pdf_document: default
+---
+
+* * *
 
 All the material for this practical is available here:
 
@@ -11,6 +20,8 @@ In this practical we will
 - Perform associations for imputed SNPs around the FTO region against BMI
 - Create a LocusZoom plot of these results
 
+* * *
+
 ### Logging in to the server
 
 Log into bluecrystal using PuTTY. Run the following command to access a compute node:
@@ -21,12 +32,28 @@ qsub -I -q teaching -l nodes=1:ppn=1,walltime=02:00:00
 
 ### Materials
 
-The material for this practical are in `pract7_Imputation`. Set your working directory:
+The scripts for this practical are on GitHub, and the data is located on the bluecrystal server.
+
+Let's download the scripts first
 
 ```
-cd pract7_Imputation
+module add tools/git-2.18.0
+git clone https://github.com/explodecomputer/ImputationPractical.git
 ```
 
+Navigate to the newly created directory
+
+```
+cd ImputationPractical
+```
+
+Now let's setup an alias to the data directory:
+
+```
+datadir="/panfs/panasas01/sscm/shortcourse/genetic.epidemiology/pract4_Imputation/data"
+```
+
+* * *
 
 ### Imputation data format
 
@@ -40,28 +67,31 @@ cd pract7_Imputation
     The imputed data that we will look at is a chunk of chromosome 16 located here:
 
     ```
-    data/data_chr16.gen.gz
+    ${datadir}/data_chr16.gen.gz
     ```
 
     View the dosage data and accompanying sample information file
 
     ```
-    zless -S data/data_chr16.gen.gz
+    zless -S ${datadir}/data_chr16.gen.gz
     ```
 
     and
 
     ```
-    less data/data.sample
+    less ${datadir}/data.sample
     ```
 
-2. We can calculate the minor allele frequencies and info scores using a programme called qctool
+2. We can calculate the minor allele frequencies and info scores using a programme called `qctool`
 
     ```
     module add apps/qctool-1.4
     qctool \
-    -g data/data_chr16.gen.gz \
+    -g ${datadir}/data_chr16.gen.gz \
     -snp-stats output/data_chr16.snp-stats
+
+    # Compress the output
+    gzip -f output/data_chr16.snp-stats
     ```
 
     (takes about 5 minutes)
@@ -78,13 +108,15 @@ cd pract7_Imputation
 
     In order to see these plots we will have to copy them across from the server to our local computers using an SFTP client. 
 
-    Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder `pract7_Imputation/`
+    Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder `ImputationPractical/`
 
 4. We can also look at another format - VCF (variant call format). This is emerging as a much more popular format, and is currently generated as output by both Sanger and Michigan imputation servers. The software to use for this format is [vcftools](http://vcftools.sourceforge.net/documentation.html) or [bcftools](https://samtools.github.io/bcftools/).
     
     ```
-    zless -S data/data_chr16.vcf.gz
+    zless -S ${datadir}/data_chr16.vcf.gz
     ```
+
+* * *
 
 ### Performing associations with imputed data
 
@@ -97,7 +129,7 @@ Alternatively, there is software that can perform associations on the probabilis
     ```
     module add apps/snptest.2.5.0
     snptest \
-    -data data/data_chr16.gen.gz data/data.sample \
+    -data ${datadir}/data_chr16.gen.gz ${datadir}/data.sample \
     -pheno bmi \
     -cov_all \
     -use_raw_phenotypes \
