@@ -1,7 +1,7 @@
 ---
 title: Imputation practical
 author: Gibran Hemani
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "19 February 2020"
 output: 
     html_document: default
     pdf_document: default
@@ -21,14 +21,6 @@ In this practical we will
 - Create a LocusZoom plot of these results
 
 * * *
-
-### Logging in to the server
-
-Log into bluecrystal using PuTTY. Run the following command to access a compute node:
-
-```
-qsub -I -q teaching -l nodes=1:ppn=1,walltime=02:00:00
-```
 
 ### Materials
 
@@ -52,6 +44,15 @@ Now let's setup an alias to the data directory:
 ```
 datadir="/panfs/panasas01/sscm/shortcourse/genetic.epidemiology/pract4_Imputation/data"
 ```
+
+### Logging in to the server
+
+Log into bluecrystal using PuTTY. Run the following command to access a compute node:
+
+```
+qsub -I -q teaching -l nodes=1:ppn=1,walltime=02:00:00
+```
+
 
 * * *
 
@@ -85,8 +86,8 @@ datadir="/panfs/panasas01/sscm/shortcourse/genetic.epidemiology/pract4_Imputatio
 2. We can calculate the minor allele frequencies and info scores using a programme called `qctool`
 
     ```
-    module add apps/qctool-1.4
-    qctool \
+    module add apps/qctool-2.0.1
+    qctool_v2.0.1 \
     -g ${datadir}/data_chr16.gen.gz \
     -snp-stats output/data_chr16.snp-stats
 
@@ -102,7 +103,7 @@ datadir="/panfs/panasas01/sscm/shortcourse/genetic.epidemiology/pract4_Imputatio
     - the relationship between info score and allele frequency
 
     ```
-    module add languages/R-3.3.3-ATLAS
+    module add languages/R-3.6.2-gcc9.1.0
     Rscript scripts/maf_info_plots.R
     ```
 
@@ -127,8 +128,8 @@ Alternatively, there is software that can perform associations on the probabilis
 1. Here we will perform associations of all the SNPs in our file against BMI
 
     ```
-    module add apps/snptest.2.5.0
-    snptest \
+    module add apps/snptest.2.5.2
+    snptest_v2.5.2 \
     -data ${datadir}/data_chr16.gen.gz ${datadir}/data.sample \
     -pheno bmi \
     -cov_all \

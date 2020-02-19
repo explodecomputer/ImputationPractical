@@ -7,10 +7,12 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Gibran Hemani" />
 
+<meta name="date" content="2020-02-19" />
 
 <title>Imputation practical</title>
 
@@ -255,9 +257,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -271,30 +271,90 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -304,15 +364,15 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Imputation practical</h1>
-<h4 class="author"><em>Gibran Hemani</em></h4>
-<h4 class="date"><em>04 June, 2018</em></h4>
+<h4 class="author">Gibran Hemani</h4>
+<h4 class="date">19 February 2020</h4>
 
 </div>
 
 
 <hr />
 <p>All the material for this practical is available here:</p>
-<p><a href="https://github.com/explodecomputer/ImputationPractical" class="uri">https://github.com/explodecomputer/ImputationPractical</a></p>
+<p><a href="https://github.com/explodecomputer/ImputationPractical">https://github.com/explodecomputer/ImputationPractical</a></p>
 <p>In this practical we will</p>
 <ul>
 <li>Look at imputation data formats</li>
@@ -321,12 +381,7 @@ $(document).ready(function () {
 <li>Create a LocusZoom plot of these results</li>
 </ul>
 <hr />
-<section id="logging-in-to-the-server" class="level3">
-<h3>Logging in to the server</h3>
-<p>Log into bluecrystal using PuTTY. Run the following command to access a compute node:</p>
-<pre><code>qsub -I -q teaching -l nodes=1:ppn=1,walltime=02:00:00</code></pre>
-</section>
-<section id="materials" class="level3">
+<div id="materials" class="section level3">
 <h3>Materials</h3>
 <p>The scripts for this practical are on GitHub, and the data is located on the bluecrystal server.</p>
 <p>Let’s download the scripts first</p>
@@ -336,11 +391,16 @@ git clone https://github.com/explodecomputer/ImputationPractical.git</code></pre
 <pre><code>cd ImputationPractical</code></pre>
 <p>Now let’s setup an alias to the data directory:</p>
 <pre><code>datadir=&quot;/panfs/panasas01/sscm/shortcourse/genetic.epidemiology/pract4_Imputation/data&quot;</code></pre>
+</div>
+<div id="logging-in-to-the-server" class="section level3">
+<h3>Logging in to the server</h3>
+<p>Log into bluecrystal using PuTTY. Run the following command to access a compute node:</p>
+<pre><code>qsub -I -q teaching -l nodes=1:ppn=1,walltime=02:00:00</code></pre>
 <hr />
-</section>
-<section id="imputation-data-format" class="level3">
+</div>
+<div id="imputation-data-format" class="section level3">
 <h3>Imputation data format</h3>
-<ol start="0" type="1">
+<ol start="0" style="list-style-type: decimal">
 <li><p>Imputation servers are absolutely the most effective way to perform imputation today. Let’s look at them:</p>
 <ul>
 <li><a href="https://imputationserver.sph.umich.edu/index.html">Michigan server</a></li>
@@ -354,21 +414,21 @@ git clone https://github.com/explodecomputer/ImputationPractical.git</code></pre
 <p>and</p>
 <pre><code>less ${datadir}/data.sample</code></pre></li>
 <li><p>We can calculate the minor allele frequencies and info scores using a programme called <code>qctool</code></p>
-<pre><code>module add apps/qctool-1.4
-qctool \
+<pre><code>module add apps/qctool-2.0.1
+qctool_v2.0.1 \
 -g ${datadir}/data_chr16.gen.gz \
 -snp-stats output/data_chr16.snp-stats
 
 # Compress the output
 gzip -f output/data_chr16.snp-stats</code></pre>
 <p>(takes about 5 minutes)</p></li>
-<li>We can create plots of these data in R. Look at
+<li><p>We can create plots of these data in R. Look at</p>
 <ul>
 <li>the distribution of info scores</li>
 <li>the distribution of allele frequencies</li>
 <li>the relationship between info score and allele frequency</li>
 </ul>
-<pre><code>module add languages/R-3.3.3-ATLAS
+<pre><code>module add languages/R-3.6.2-gcc9.1.0
 Rscript scripts/maf_info_plots.R</code></pre>
 <p>In order to see these plots we will have to copy them across from the server to our local computers using an SFTP client.</p>
 <p>Open up WinSCP (from the Start menu), and connect using the same credentials as you have used in Putty. Once connected you should be able to navigate to the folder <code>ImputationPractical/</code></p></li>
@@ -376,15 +436,15 @@ Rscript scripts/maf_info_plots.R</code></pre>
 <pre><code>zless -S ${datadir}/data_chr16.vcf.gz</code></pre></li>
 </ol>
 <hr />
-</section>
-<section id="performing-associations-with-imputed-data" class="level3">
+</div>
+<div id="performing-associations-with-imputed-data" class="section level3">
 <h3>Performing associations with imputed data</h3>
 <p>It is possible to convert the imputed data to plink’s binary format. This will <strong>destroy</strong> information, because it takes the dosages and reduces them to ‘best guess’ genotypes - discarding the uncertainty inherent in probabilistic dosages. With best guess data one can perform associations as usual with plink or other software.</p>
 <p>Alternatively, there is software that can perform associations on the probabilistic dosage data itself, using the uncertainty as part of the association test statistic. For Oxford or VCF format data we can use software called <a href="https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html">SNPTEST</a>.</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p>Here we will perform associations of all the SNPs in our file against BMI</p>
-<pre><code>module add apps/snptest.2.5.0
-snptest \
+<pre><code>module add apps/snptest.2.5.2
+snptest_v2.5.2 \
 -data ${datadir}/data_chr16.gen.gz ${datadir}/data.sample \
 -pheno bmi \
 -cov_all \
@@ -397,12 +457,12 @@ snptest \
 <p>Note that the <code>data_chr16.vcf.gz</code> file can be used here in lieu of <code>data_chr16.gen.gz</code>.</p></li>
 <li><p>Remove results with low info scores from the results</p>
 <pre><code>zgrep -v &quot;#&quot; results/bmi.txt.gz \
-| awk '{ if(NR == 1 || $9 &gt; 0.5) { print $0 }}' \
+| awk &#39;{ if(NR == 1 || $9 &gt; 0.5) { print $0 }}&#39; \
 &gt; output/bmi_filtered.txt</code></pre></li>
 <li><p>Create a LocusZoom plot. This requires that you use WinSCP to download the <code>output/bmi_filtered.txt</code> file from Bluecrystal3, and then upload that file to <a href="http://locuszoom.org/genform.php?type=yourdata">LocusZoom</a>.</p>
 <p>The “Marker Column Name” is <code>rsid</code> and the “P-Value Column Name” is <code>frequentist_add_pvalue</code>. The column delimiter is <code>Space</code>. For the region specify <code>rs8050136</code> as the SNP. How does this plot compare to the results that you obtained from the GWAS session?</p></li>
 </ol>
-</section>
+</div>
 
 
 
@@ -421,6 +481,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
